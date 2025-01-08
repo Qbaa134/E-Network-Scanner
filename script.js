@@ -1,4 +1,4 @@
-// Skanowanie urządzeń Bluetooth
+// Bluetooth scanning
 document.getElementById('scan-bluetooth').addEventListener('click', async () => {
     try {
         const device = await navigator.bluetooth.requestDevice({ acceptAllDevices: true });
@@ -8,30 +8,28 @@ document.getElementById('scan-bluetooth').addEventListener('click', async () => 
     }
 });
 
-// Geolokalizacja
-if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(position => {
-        displayOutput(`GPS Position: Lat ${position.coords.latitude}, Lon ${position.coords.longitude}`);
-    });
-} else {
-    displayOutput("Geolocation is not available.");
-}
-
-// Skanowanie sieci Wi-Fi (tylko dla niektórych przeglądarek)
-document.getElementById('scan-wifi').addEventListener('click', async () => {
-    if (navigator.wifi) {
-        try {
-            const networks = await navigator.wifi.getNetworks();
-            displayOutput(`Available Wi-Fi networks: ${networks.join(', ')}`);
-        } catch (error) {
-            displayOutput('Wi-Fi scan failed: ' + error);
-        }
-    } else {
-        displayOutput("Wi-Fi scanning is not supported in your browser.");
+// Radio stations fetching
+document.getElementById('get-radio-stations').addEventListener('click', async () => {
+    try {
+        const response = await fetch('https://de1.api.radio-browser.info/json/stations/bycountry/Poland');
+        const stations = await response.json();
+        displayRadioStations(stations);
+    } catch (error) {
+        displayOutput('Failed to fetch radio stations: ' + error);
     }
 });
 
-// Funkcja do wyświetlania danych
+// Display radio stations
+function displayRadioStations(stations) {
+    let output = '<h2>Available Radio Stations:</h2><ul>';
+    stations.forEach(station => {
+        output += `<li>${station.name} - ${station.frequency} MHz - ${station.country}</li>`;
+    });
+    output += '</ul>';
+    document.getElementById('output').innerHTML = output;
+}
+
+// Display output
 function displayOutput(data) {
     const output = document.getElementById('output');
     output.innerHTML += `<pre>${data}</pre>`;
