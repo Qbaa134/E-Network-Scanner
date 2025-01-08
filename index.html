@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Network Scanner</title>
+    <title>Airline Finder</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Available Networks and Devices</h1>
-    <button id="scan-bluetooth">Scan Bluetooth</button>
-    <button id="get-radio-stations">Show Radio Stations</button>
-    <div id="output"></div>
+    <header>
+        <h1>Airline Finder</h1>
+        <input type="text" id="searchInput" placeholder="Enter airline name...">
+        <button onclick="searchAirline()">Search</button>
+    </header>
+
+    <main>
+        <section id="results" class="results">
+            <!-- Results will appear here -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Airline Finder. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
