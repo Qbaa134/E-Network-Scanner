@@ -8,29 +8,33 @@ document.getElementById('scan-bluetooth').addEventListener('click', async () => 
     }
 });
 
-// Radio stations fetching
-document.getElementById('get-radio-stations').addEventListener('click', async () => {
-    try {
-        const response = await fetch('https://de1.api.radio-browser.info/json/stations/bycountry/Poland');
-        const stations = await response.json();
-        displayRadioStations(stations);
-    } catch (error) {
-        displayOutput('Failed to fetch radio stations: ' + error);
+// Radio station scanning based on location
+document.getElementById('scan-radio').addEventListener('click', () => {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            displayOutput(`Your location: Lat ${lat}, Lon ${lon}`);
+            
+            // Fetch radio stations from the API
+            const response = await fetch(`https://fr1.api.radio-browser.info/json/stations/bygeo?lat=${lat}&lon=${lon}`);
+            const stations = await response.json();
+            displayOutput("Nearby Radio Stations:");
+            stations.forEach(station => {
+                displayOutput(`- ${station.name} (${station.country}): ${station.url_resolved}`);
+            });
+        });
+    } else {
+        displayOutput("Geolocation is not available.");
     }
 });
 
-// Display radio stations
-function displayRadioStations(stations) {
-    let output = '<h2>Available Radio Stations:</h2><ul>';
-    stations.forEach(station => {
-        output += `<li>${station.name} - ${station.frequency} MHz - ${station.country}</li>`;
-    });
-    output += '</ul>';
-    document.getElementById('output').innerHTML = output;
-}
-
-// Display output
+// Function to display output
 function displayOutput(data) {
     const output = document.getElementById('output');
-    output.innerHTML += `<pre>${data}</pre>`;
+    if (typeof data === "string") {
+        output.innerHTML += `<p>${data}</p>`;
+    } else {
+        output.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+    }
 }
