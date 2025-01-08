@@ -1,5 +1,5 @@
 document.getElementById('scanBtn').addEventListener('click', () => {
-    fetch('https://twoj-backend.herokuapp.com/scan')
+    fetch('https://e-network-scanner.onrender.com')
         .then(response => response.json())
         .then(data => {
             const resultsDiv = document.getElementById('results');
