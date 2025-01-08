@@ -1,5 +1,5 @@
 document.getElementById('scanBtn').addEventListener('click', () => {
-    fetch('https://e-network-scanner.onrender.com')
+    fetch('https://e-network-scanner.onrender.com/scan')
         .then(response => response.json())
         .then(data => {
             const resultsDiv = document.getElementById('results');
