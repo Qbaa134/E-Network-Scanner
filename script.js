@@ -1,40 +1,63 @@
-// Bluetooth scanning
-document.getElementById('scan-bluetooth').addEventListener('click', async () => {
+// Funkcja do skanowania urządzeń Bluetooth
+async function scanBluetoothDevices() {
     try {
-        const device = await navigator.bluetooth.requestDevice({ acceptAllDevices: true });
-        displayOutput(`Bluetooth Device: ${device.name}`);
-    } catch (error) {
-        displayOutput('Bluetooth scan failed: ' + error);
-    }
-});
-
-// Radio station scanning based on location
-document.getElementById('scan-radio').addEventListener('click', () => {
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            displayOutput(`Your location: Lat ${lat}, Lon ${lon}`);
-            
-            // Fetch radio stations from the API
-            const response = await fetch(`https://fr1.api.radio-browser.info/json/stations/bygeo?lat=${lat}&lon=${lon}`);
-            const stations = await response.json();
-            displayOutput("Nearby Radio Stations:");
-            stations.forEach(station => {
-                displayOutput(`- ${station.name} (${station.country}): ${station.url_resolved}`);
-            });
+        const device = await navigator.bluetooth.requestDevice({
+            acceptAllDevices: true
         });
-    } else {
-        displayOutput("Geolocation is not available.");
-    }
-});
-
-// Function to display output
-function displayOutput(data) {
-    const output = document.getElementById('output');
-    if (typeof data === "string") {
-        output.innerHTML += `<p>${data}</p>`;
-    } else {
-        output.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        displayOutput(`<p>Bluetooth Device Found: ${device.name || 'Unknown Device'}</p>`);
+    } catch (error) {
+        displayOutput(`<p>Bluetooth scan failed: ${error.message}</p>`);
     }
 }
+
+// Funkcja do pobierania stacji radiowych na podstawie lokalizacji
+async function getRadioStations(lat, lon) {
+    try {
+        const response = await fetch(`https://fr1.api.radio-browser.info/json/stations/bygeo?lat=${lat}&lon=${lon}`);
+        const stations = await response.json();
+
+        if (stations.length > 0) {
+            displayOutput(`<h2>Nearby Radio Stations:</h2>`);
+            stations.forEach(station => {
+                displayOutput(`
+                    <div class="station">
+                        <p><strong>${station.name}</strong> (${station.country})</p>
+                        <p>Stream: <a href="${station.url_resolved}" target="_blank">${station.url_resolved}</a></p>
+                    </div>
+                `);
+            });
+        } else {
+            displayOutput("<p>No radio stations found nearby.</p>");
+        }
+    } catch (error) {
+        displayOutput(`<p>Error fetching radio stations: ${error.message}</p>`);
+    }
+}
+
+// Funkcja do pobierania lokalizacji użytkownika
+function getLocation() {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            displayOutput(`<p>Your location: Lat ${lat}, Lon ${lon}</p>`);
+            getRadioStations(lat, lon);
+        }, error => {
+            displayOutput(`<p>Error getting location: ${error.message}</p>`);
+        });
+    } else {
+        displayOutput("<p>Geolocation is not supported by your browser.</p>");
+    }
+}
+
+// Funkcja do wyświetlania danych na stronie
+function displayOutput(data) {
+    const output = document.getElementById('output');
+    output.innerHTML += data;
+}
+
+// Obsługa przycisku do skanowania Bluetooth
+document.getElementById('scan-bluetooth').addEventListener('click', scanBluetoothDevices);
+
+// Obsługa przycisku do skanowania stacji radiowych
+document.getElementById('scan-radio').addEventListener('click', getLocation);
