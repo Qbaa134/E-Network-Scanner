@@ -1,0 +1,13 @@
+{
+  "name": "networkscanner",
+  "version": "1.0.0",
+  "description": "Network Scanner Web App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-wifi": "^2.0.16"
+  }
+}
