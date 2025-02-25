@@ -1,8 +1,9 @@
+
 # Test wyswietlacza:
 ---
 ## Krok 1: Instalacja sterowników z plików ZIP
 
-### 7.1 Instalacja sterowników na systemie Windows
+### 1.1 Instalacja sterowników na systemie Windows
 
 1. **Rozpakowanie pliku ZIP**:
    - Rozpakuj plik ZIP, który zawiera sterowniki dla Twojego urządzenia (ESP32/ESP8266), do dogodnej lokalizacji na komputerze.
@@ -22,13 +23,7 @@
    - Po zakończeniu instalacji sterowników urządzenie powinno zostać poprawnie rozpoznane w Menedżerze urządzeń.
    - Upewnij się, że urządzenie nie ma już żółtego wykrzyknika przy nazwie (co wskazywałoby na problem z instalacją sterownika).
 
-5. **Testowanie połączenia**:
-   - Otwórz **Arduino IDE** i upewnij się, że wybrana płytka i port są poprawne:
-     - Wybierz **Narzędzia > Płytka > ESP32 Dev Module** (lub odpowiednią dla ESP8266).
-     - Wybierz **Narzędzia > Port > [Twój port]**.
-   - Spróbuj wgrać przykładowy szkic (np. **Blink**) na ESP32 lub ESP8266, aby upewnić się, że sterowniki działają poprawnie.
-
-### 7.2 Instalacja sterowników na systemie macOS
+### 1.2 Instalacja sterowników na systemie macOS
 
 1. **Rozpakowanie pliku ZIP**:
    - Rozpakuj plik ZIP z sterownikami w dowolnym folderze.
@@ -42,15 +37,7 @@
      - Dla **ESP32** użyj sterownika **CP210x**: [Sterowniki CP210x dla macOS](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers).
      - Dla **ESP8266** użyj sterownika **CH340**: [Sterowniki CH340 dla macOS](http://www.wch.cn/downloads/CH341SER_MAC_ZIP.html).
 
-4. **Testowanie połączenia**:
-   - Otwórz **Arduino IDE** i sprawdź, czy urządzenie jest widoczne:
-     - **Narzędzia > Płytka > ESP32 Dev Module** lub **NodeMCU 1.0 (ESP-12E Module)**.
-     - **Narzędzia > Port** - upewnij się, że wybrany jest odpowiedni port dla ESP32/ESP8266.
-
-5. **Wgrywanie programu**:
-   - Po zainstalowaniu sterowników, wgraj przykładowy szkic (np. **Blink**) na ESP32/ESP8266, aby upewnić się, że urządzenie jest prawidłowo rozpoznawane.
-
-### 7.3 Instalacja sterowników na systemie Linux
+### 1.3 Instalacja sterowników na systemie Linux
 
 1. **Rozpakowanie pliku ZIP**:
    - Rozpakuj plik ZIP z sterownikami w dowolnym folderze.
@@ -76,18 +63,7 @@
      ```
    - Upewnij się, że urządzenie jest widoczne jako `/dev/ttyUSB0` lub `/dev/ttyAMA0`.
 
-5. **Wgrywanie programu**:
-   - Otwórz **Arduino IDE**, wybierz odpowiednią płytkę i port, a następnie wgraj szkic (np. **Blink**), aby upewnić się, że urządzenie działa poprawnie.
-
-## Krok 8: Finalne testy i debugowanie
-
-- Jeśli po zainstalowaniu sterowników i wgraniu programu pojawią się problemy, sprawdź:
-  - Połączenie USB (sprawdź kable i porty).
-  - Ustawienia w **Arduino IDE** (płytka i port).
-  - Jeśli pojawiają się komunikaty o błędach, poszukaj ich w dokumentacji i forach społecznościowych, np. na [StackOverflow](https://stackoverflow.com/) lub [forum Arduino](https://forum.arduino.cc/).
-
-Zakończyliśmy instalację sterowników i programowania ESP32/ESP8266. Teraz możesz korzystać z urządzenia, tworzyć aplikacje i rozwijać swoje projekty!
-## Krok 1: Instalacja niezbędnych bibliotek
+## Krok 2: Instalacja niezbędnych bibliotek
 
 Zanim zaczniemy, musimy upewnić się, że wszystkie wymagane biblioteki są zainstalowane w Arduino IDE. Oto jak to zrobić:
 
@@ -108,7 +84,7 @@ Zanim zaczniemy, musimy upewnić się, że wszystkie wymagane biblioteki są zai
    - **ESP32**: `WiFi.h`
    - **ESP8266**: `ESP8266WiFi.h`
 
-## Krok 2: Wybór płytki
+## Krok 3: Wybór płytki
 
 Wybierz odpowiednią płytkę w zależności od tego, czy używasz **ESP32** czy **ESP8266**.
 
@@ -117,7 +93,7 @@ Wybierz odpowiednią płytkę w zależności od tego, czy używasz **ESP32** czy
 2. **Dla ESP8266**:
    - Wybierz **Płytka > NodeMCU 1.0 (ESP-12E Module)**.
 
-## Krok 3: Podłączenie wyświetlacza ILI9341
+## Krok 4: Podłączenie wyświetlacza ILI9341
 
 Podłącz wyświetlacz ILI9341 do płytki ESP32/ESP8266 zgodnie z poniższym schematem:
 
@@ -132,7 +108,7 @@ Podłącz wyświetlacz ILI9341 do płytki ESP32/ESP8266 zgodnie z poniższym sch
 | SCK                 | D18 (ESP32) / D5 (ESP8266) |
 | LED                 | 3V3 (opcjonalnie) |
 
-## Krok 4: Kod źródłowy dla ESP32 i ESP8266
+## Krok 5: Kod źródłowy dla ESP32 i ESP8266
 
 Teraz możemy przejść do wgrania programu, który ustawia ESP32/ESP8266 w trybie punktu AP (Access Point) i serwera WWW, a także wyświetla tekst na wyświetlaczu ILI9341.
 
@@ -143,21 +119,28 @@ Teraz możemy przejść do wgrania programu, który ustawia ESP32/ESP8266 w tryb
 3. **Serwer WWW**: Tworzymy prosty serwer, który odpowiada na żądania HTTP i wysyła stronę HTML z formularzem, gdzie użytkownik może wpisać tekst.
 4. **Wyświetlanie tekstu na ekranie**: Na wyświetlaczu ILI9341 wyświetlamy informacje o stanie, np. adres IP punktu AP.
 
-## Krok 5: Wgrywanie programu
+## Krok 6: Wgrywanie programu
 
 1. Podłącz ESP32/ESP8266 do komputera.
 2. Wybierz odpowiednią płytkę w **Narzędzia > Płytka**.
 3. Wybierz odpowiedni port w **Narzędzia > Port**.
 4. Kliknij **Wgraj** w Arduino IDE.
 
-## Krok 6: Testowanie
+## Krok 7: Testowanie
 
 1. Po wgraniu programu, ESP32/ESP8266 powinien stworzyć punkt dostępowy (AP) o nazwie `ESP_AP`.
 2. Podłącz się do tej sieci Wi-Fi z urządzenia (np. telefonu lub laptopa).
 3. Otwórz przeglądarkę i przejdź do adresu: `http://192.168.4.1`.
 4. Powinna pojawić się strona z formularzem, w którym można wpisać tekst.
 5. Po wysłaniu formularza, ESP32/ESP8266 może wyświetlić na wyświetlaczu wprowadzony tekst lub inne informacje.
+---
+# Finalne testy i debugowanie
 
+- Jeśli po zainstalowaniu sterowników i wgraniu programu pojawią się problemy, sprawdź:
+  - Połączenie USB (sprawdź kable i porty).
+  - Ustawienia w **Arduino IDE** (płytka i port).
+  - Jeśli pojawiają się komunikaty o błędach, poszukaj ich w dokumentacji i forach społecznościowych, np. na [StackOverflow](https://stackoverflow.com/) lub [forum Arduino](https://forum.arduino.cc/).
+---
 ## Podsumowanie
 
 W tym tutorialu przedstawiłem, jak wgrać program dla ESP32 i ESP8266, który obsługuje wyświetlacz ILI9341 oraz tworzy punkt AP z prostą stroną HTML. Dzięki temu możesz szybko uruchomić prosty interfejs do interakcji z użytkownikiem przez sieć Wi-Fi i przetestować płytkę.
