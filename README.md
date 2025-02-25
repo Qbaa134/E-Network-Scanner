@@ -1,5 +1,92 @@
 # Test wyswietlacza:
 ---
+## Krok 1: Instalacja sterowników z plików ZIP
+
+### 7.1 Instalacja sterowników na systemie Windows
+
+1. **Rozpakowanie pliku ZIP**:
+   - Rozpakuj plik ZIP, który zawiera sterowniki dla Twojego urządzenia (ESP32/ESP8266), do dogodnej lokalizacji na komputerze.
+
+2. **Podłączenie ESP32/ESP8266**:
+   - Podłącz płytkę ESP32 lub ESP8266 do portu USB w komputerze.
+
+3. **Instalacja sterowników**:
+   - Wejdź w **Menedżer urządzeń** na komputerze.
+     - Aby to zrobić, naciśnij `Win + X`, a następnie wybierz **Menedżer urządzeń**.
+   - W Menedżerze urządzeń znajdź swoje urządzenie (np. **ESP32** lub **ESP8266**). Pojawi się ono jako "Nieznane urządzenie" lub pod nazwą **CP210x USB to UART Bridge**.
+   - Kliknij prawym przyciskiem myszy na nazwę urządzenia i wybierz **Zainstaluj sterownik** lub **Aktualizuj sterownik**.
+   - Wybierz opcję **Wyszukaj sterowniki na moim komputerze**.
+   - Wskaż folder, w którym rozpakowałeś plik ZIP z sterownikami.
+
+4. **Zakończenie instalacji**:
+   - Po zakończeniu instalacji sterowników urządzenie powinno zostać poprawnie rozpoznane w Menedżerze urządzeń.
+   - Upewnij się, że urządzenie nie ma już żółtego wykrzyknika przy nazwie (co wskazywałoby na problem z instalacją sterownika).
+
+5. **Testowanie połączenia**:
+   - Otwórz **Arduino IDE** i upewnij się, że wybrana płytka i port są poprawne:
+     - Wybierz **Narzędzia > Płytka > ESP32 Dev Module** (lub odpowiednią dla ESP8266).
+     - Wybierz **Narzędzia > Port > [Twój port]**.
+   - Spróbuj wgrać przykładowy szkic (np. **Blink**) na ESP32 lub ESP8266, aby upewnić się, że sterowniki działają poprawnie.
+
+### 7.2 Instalacja sterowników na systemie macOS
+
+1. **Rozpakowanie pliku ZIP**:
+   - Rozpakuj plik ZIP z sterownikami w dowolnym folderze.
+
+2. **Podłączenie ESP32/ESP8266**:
+   - Podłącz płytkę do portu USB w komputerze.
+
+3. **Instalacja sterowników**:
+   - Na macOS sterowniki mogą być zainstalowane automatycznie, ale w przypadku problemów musisz zainstalować odpowiednią wersję sterownika **CP210x** lub **CH340**.
+   - Jeśli sterowniki nie zostały zainstalowane automatycznie, możesz zainstalować je ręcznie:
+     - Dla **ESP32** użyj sterownika **CP210x**: [Sterowniki CP210x dla macOS](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers).
+     - Dla **ESP8266** użyj sterownika **CH340**: [Sterowniki CH340 dla macOS](http://www.wch.cn/downloads/CH341SER_MAC_ZIP.html).
+
+4. **Testowanie połączenia**:
+   - Otwórz **Arduino IDE** i sprawdź, czy urządzenie jest widoczne:
+     - **Narzędzia > Płytka > ESP32 Dev Module** lub **NodeMCU 1.0 (ESP-12E Module)**.
+     - **Narzędzia > Port** - upewnij się, że wybrany jest odpowiedni port dla ESP32/ESP8266.
+
+5. **Wgrywanie programu**:
+   - Po zainstalowaniu sterowników, wgraj przykładowy szkic (np. **Blink**) na ESP32/ESP8266, aby upewnić się, że urządzenie jest prawidłowo rozpoznawane.
+
+### 7.3 Instalacja sterowników na systemie Linux
+
+1. **Rozpakowanie pliku ZIP**:
+   - Rozpakuj plik ZIP z sterownikami w dowolnym folderze.
+
+2. **Podłączenie ESP32/ESP8266**:
+   - Podłącz płytkę do portu USB w komputerze.
+
+3. **Instalacja sterowników**:
+   - Na większości dystrybucji Linux, sterowniki dla urządzeń takich jak **CP210x** i **CH340** są już zainstalowane domyślnie. Jeśli urządzenie nie jest rozpoznawane, wykonaj następujące kroki:
+     - Dla **ESP32**: Zainstaluj sterownik **CP210x** za pomocą terminala:
+       ```bash
+       sudo apt-get install cp210x
+       ```
+     - Dla **ESP8266**: Zainstaluj sterownik **CH340**:
+       ```bash
+       sudo apt-get install ch340
+       ```
+
+4. **Testowanie połączenia**:
+   - Sprawdź, czy ESP32/ESP8266 jest widoczny na liście urządzeń:
+     ```bash
+     ls /dev/tty*
+     ```
+   - Upewnij się, że urządzenie jest widoczne jako `/dev/ttyUSB0` lub `/dev/ttyAMA0`.
+
+5. **Wgrywanie programu**:
+   - Otwórz **Arduino IDE**, wybierz odpowiednią płytkę i port, a następnie wgraj szkic (np. **Blink**), aby upewnić się, że urządzenie działa poprawnie.
+
+## Krok 8: Finalne testy i debugowanie
+
+- Jeśli po zainstalowaniu sterowników i wgraniu programu pojawią się problemy, sprawdź:
+  - Połączenie USB (sprawdź kable i porty).
+  - Ustawienia w **Arduino IDE** (płytka i port).
+  - Jeśli pojawiają się komunikaty o błędach, poszukaj ich w dokumentacji i forach społecznościowych, np. na [StackOverflow](https://stackoverflow.com/) lub [forum Arduino](https://forum.arduino.cc/).
+
+Zakończyliśmy instalację sterowników i programowania ESP32/ESP8266. Teraz możesz korzystać z urządzenia, tworzyć aplikacje i rozwijać swoje projekty!
 ## Krok 1: Instalacja niezbędnych bibliotek
 
 Zanim zaczniemy, musimy upewnić się, że wszystkie wymagane biblioteki są zainstalowane w Arduino IDE. Oto jak to zrobić:
