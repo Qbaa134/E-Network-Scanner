@@ -11,7 +11,7 @@
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 
 // Parametry sieci AP
-const char *ssid = "ESP32_AP";  // Nazwa sieci Wi-Fi (możesz zmienić)
+const char *ssid = "ESP_AP";  // Nazwa sieci Wi-Fi (możesz zmienić)
 const char *password = "123456789"; // Hasło do sieci
 
 // Adres IP dla AP
